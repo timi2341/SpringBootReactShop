@@ -3,13 +3,13 @@ import { initializeFirestore } from "firebase/firestore";
 
 // 👇 PUNE DATELE REALE AICI (doar pentru test)
 const firebaseConfig = {
-  apiKey: "AIzaSyB7GUNQER2jkCxWGzDgrxkwje-NjKf3KE4",
-  authDomain: "shopchat-48c0a.firebaseapp.com",
-  projectId: "shopchat-48c0a",
-  storageBucket: "shopchat-48c0a.firebasestorage.app",
-  messagingSenderId: "893741054544",
-  appId: "1:893741054544:web:2c6222ee995c6a5a9daf55",
-  measurementId: "G-CW37R6H1QJ"
+  apiKey: "AIzaSyBMHA86mPQ5HSrZYIgCIoPDdjprVGu39No",
+  authDomain: "shop-chat-243e2.firebaseapp.com",
+  projectId: "shop-chat-243e2",
+  storageBucket: "shop-chat-243e2.firebasestorage.app",
+  messagingSenderId: "14017507258",
+  appId: "1:14017507258:web:ef5ed87e4842e641d8b783",
+  measurementId: "G-23HVXSZES3"
 };
 const app = initializeApp(firebaseConfig);
 
