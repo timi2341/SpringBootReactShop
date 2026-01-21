@@ -1,33 +1,35 @@
 server:
-  # Fixed syntax error here
-  port: 8080
+  port: ${PORT:8080}
 
 spring:
   datasource:
-    # Hardcoded Neon URL (added jdbc: prefix)
-    url: jdbc:postgresql://ep-autumn-surf-agp3377v-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require
-    username: neondb_owner
-    password: npg_ay0qkWNSwim8
+    # Syntax: ${VAR_NAME:Default_Value_For_Local}
+    # Render will inject DB_URL. Local will use the jdbc string after the colon.
+    url: ${DB_URL:jdbc:postgresql://ep-autumn-surf-agp3377v-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require}
+    username: ${DB_USERNAME:neondb_owner}
+    password: ${DB_PASSWORD:npg_ay0qkWNSwim8}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update  # Changed to 'update' so it creates tables automatically
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
-    enabled: false # Disable Flyway temporarily if you want Hibernate to manage tables
+    enabled: false
     locations: classpath:db/migration
     baseline-on-migrate: true
 
   data:
     redis:
-      host: localhost
-      port: 6379
+      # Render injects REDIS_HOST. Local uses the Upstash URL.
+      host: ${REDIS_HOST:deep-slug-47623.upstash.io}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:AboHAAIncDEyYTc4YzkzYjY3ZWU0YzZkYjg3ZTA3ZTlmZTQwNWI4MnAxNDc2MjM}
       ssl:
-        enabled: false
+        enabled: ${REDIS_SSL:true}
 
 springdoc:
   api-docs:
@@ -37,12 +39,10 @@ springdoc:
   info:
     title: FullStack Shop API
     version: 1.0.0
-    description: JWT based shop
 
 jwt:
-  # Hardcoded secret for local dev
-  secret: secret256BitKeyPentruDev123456789012345678901234567890
-  expiration: 3600
+  secret: ${JWT_SECRET:secret256BitKeyPentruDev123456789012345678901234567890}
+  expiration: ${JWT_EXPIRATION:3600}
 
 roles:
   admin: ADMIN
