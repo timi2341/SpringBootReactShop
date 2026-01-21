@@ -1,31 +1,33 @@
 server:
-  port: ${PORT}
+  # Fixed syntax error here
+  port: 8080
 
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    # Hardcoded Neon URL (added jdbc: prefix)
+    url: jdbc:postgresql://ep-autumn-surf-agp3377v-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_ay0qkWNSwim8
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update  # Changed to 'update' so it creates tables automatically
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   flyway:
+    enabled: false # Disable Flyway temporarily if you want Hibernate to manage tables
     locations: classpath:db/migration
     baseline-on-migrate: true
 
   data:
     redis:
-      host: ${REDIS_HOST}
-      port: ${REDIS_PORT}
-      password: ${REDIS_PASSWORD}
+      host: localhost
+      port: 6379
       ssl:
-        enabled: ${REDIS_SSL}
+        enabled: false
 
 springdoc:
   api-docs:
@@ -38,13 +40,14 @@ springdoc:
     description: JWT based shop
 
 jwt:
-  secret: ${JWT_SECRET}
-  expiration: ${JWT_EXPIRATION}
+  # Hardcoded secret for local dev
+  secret: secret256BitKeyPentruDev123456789012345678901234567890
+  expiration: 3600
 
-# Rolurile sunt constante ale aplicației, pot rămâne hardcodate
 roles:
   admin: ADMIN
   customer: CUSTOMER
+
 logging:
   level:
     org.springframework.security: DEBUG
